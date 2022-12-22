@@ -1,0 +1,15 @@
+package io.github.alwins0n.fxtension;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
+
+@Target({java.lang.annotation.ElementType.METHOD})
+@Retention(java.lang.annotation.RetentionPolicy.RUNTIME)
+public @interface RunFXML {
+
+  /**
+   * @return the path to the .fxml view to load on the classpath/modulepath. Must be readable/opened
+   */
+  String value();
+
+}
