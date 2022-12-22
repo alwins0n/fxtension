@@ -59,7 +59,7 @@ The test:
 ```java
 
 @ExtendWith(FXtension.class)
-class FXtensionViewTest extends FXtensionBaseTest {
+class FXtensionViewTest {
 
     MyController unit; // the controller used by the FXMLLoader
     // BuilderFactory factory; // we could inject other objects for the FXMLLoader here
