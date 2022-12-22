@@ -4,12 +4,12 @@ import io.github.alwins0n.fxtension.FXtension;
 import io.github.alwins0n.fxtension.RunFX;
 import io.github.alwins0n.fxtension.RunFXML;
 import javafx.application.Platform;
-import javafx.concurrent.Task;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ExtendWith(FXtension.class)
 class FXtensionTest {
@@ -37,6 +37,7 @@ class FXtensionTest {
   @Test
   @RunFXML("views/test.fxml")
   void runView_shouldUpdateModel() {
+    assertFalse(model.checkProperty().get());
     unit.check.setSelected(true);
     assertTrue(model.checkProperty().get());
   }
