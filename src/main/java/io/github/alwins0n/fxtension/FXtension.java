@@ -28,7 +28,7 @@ public class FXtension implements Extension,
   private static final AtomicBoolean initialized = new AtomicBoolean();
 
   @Override
-  public synchronized void preConstructTestInstance(TestInstanceFactoryContext testInstanceFactoryContext, ExtensionContext extensionContext) throws Exception {
+  public void preConstructTestInstance(TestInstanceFactoryContext testInstanceFactoryContext, ExtensionContext extensionContext) throws Exception {
     if (!initialized.getAndSet(true)) {
       log.info("Starting JavaFX");
       var startLatch = new CountDownLatch(1);
@@ -47,7 +47,7 @@ public class FXtension implements Extension,
       Platform.runLater(() -> {
         try {
           if (testMethod.isAnnotationPresent(RunFXML.class)) {
-            setUpView(extensionContext, testMethod);
+            setUpView(extensionContext, testMethod.getAnnotation(RunFXML.class));
           }
           invocation.proceed();
         } catch (Throwable throwable) {
@@ -65,8 +65,8 @@ public class FXtension implements Extension,
     }
   }
 
-  private static void setUpView(ExtensionContext extensionContext, Method testMethod) {
-    var view = testMethod.getAnnotation(RunFXML.class).value();
+  private static void setUpView(ExtensionContext extensionContext, RunFXML annotation) {
+    var view = annotation.value();
     var viewUrl = getModulePathResourceURL(view);
     if (viewUrl == null) {
       throw new RuntimeException("View not found: " + view);
